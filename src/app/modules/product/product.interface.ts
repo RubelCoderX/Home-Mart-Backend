@@ -5,6 +5,6 @@ export type TProduct = {
   description: string
   stock: number
   rating: number
-  images: string[]
+  images: string
   isDelete: boolean
 }

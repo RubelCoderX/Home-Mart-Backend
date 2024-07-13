@@ -2,19 +2,24 @@ import express from 'express'
 import cors from 'cors'
 import router from './app/routes'
 import globalErrorHandler from './app/middleware/globalErrorHandler'
+
 const app = express()
 
-// cors
-app.use(express.json())
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
+// Enable CORS for requests from http://localhost:5173
+app.use(cors({ origin: 'http://localhost:5173' }))
 
-//aplication route
+// Middleware to parse JSON request bodies
+app.use(express.json())
+
+// Application routes
 app.use('/api/v1', router)
 
+// Default route
 app.get('/', (req, res) => {
   res.send('Welcome Campers Shop!')
 })
 
+// Global error handler middleware
 app.use(globalErrorHandler)
 
 export default app

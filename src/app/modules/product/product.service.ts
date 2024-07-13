@@ -1,19 +1,51 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status'
 import AppError from '../../error/AppError'
 import { TProduct } from './product.interface'
 import { Product } from './product.model'
 
 const createProductIntoDB = async (payload: TProduct) => {
-  const productName = payload.name
-  const existProduct = await Product.findOne({ name: productName })
-  if (existProduct) {
-    throw new AppError(httpStatus.CONFLICT, 'this product already exists!')
+  const product = payload.name
+  const isExitsProduct = await Product.find({ product })
+  if (isExitsProduct) {
+    throw new AppError(httpStatus.CONFLICT, 'This Product already exists')
   }
   const result = await Product.create(payload)
+
   return result
 }
-const getAllProductFromDB = async () => {
-  const result = await Product.find()
+const getAllProductFromDB = async (
+  searchQuery: string,
+  sortDirction: number,
+) => {
+  let query: any = {}
+
+  if (searchQuery) {
+    const searchRegex = new RegExp(searchQuery, 'i')
+    query = {
+      $or: [
+        {
+          name: searchRegex,
+        },
+        {
+          description: searchRegex,
+        },
+      ],
+    }
+  }
+  let sortCriteria: any = {}
+  if (sortDirction === 0) {
+    sortCriteria = {}
+  } else if (sortDirction === 1) {
+    sortCriteria = { price: 1 }
+  } else if (sortDirction === -1) {
+    sortCriteria = { price: -1 }
+  }
+  const result = await Product.find(query).sort(sortCriteria)
+  return result
+}
+const getSingleProductFromDB = async (id: string) => {
+  const result = await Product.findById(id)
   return result
 }
 
@@ -48,6 +80,7 @@ const deleteProductFromDB = async (productId: string) => {
 export const ProductService = {
   createProductIntoDB,
   getAllProductFromDB,
+  getSingleProductFromDB,
   updateProductIntoDB,
   deleteProductFromDB,
 }

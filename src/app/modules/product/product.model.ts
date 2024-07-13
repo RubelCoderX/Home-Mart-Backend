@@ -22,12 +22,16 @@ const ProductSchema = new Schema<TProduct>({
     type: Number,
     required: [true, 'Rating is required'],
   },
+  price: {
+    type: Number,
+    required: [true, 'Price is required'],
+  },
   isDelete: {
     type: Boolean,
     default: false,
   },
   images: {
-    type: [String],
+    type: String,
     required: [true, 'Images is required'],
   },
 })
