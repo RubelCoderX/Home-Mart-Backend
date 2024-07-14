@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.post(
   '/create-order',
-  validRequest(OrderValidation.orderValidationSchema),
+  // validRequest(OrderValidation.orderValidationSchema),
   OrderControllers.getOrder,
 )
 

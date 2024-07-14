@@ -5,11 +5,12 @@ import { TProduct } from './product.interface'
 import { Product } from './product.model'
 
 const createProductIntoDB = async (payload: TProduct) => {
-  const product = payload.name
-  const isExitsProduct = await Product.find({ product })
-  if (isExitsProduct) {
-    throw new AppError(httpStatus.CONFLICT, 'This Product already exists')
-  }
+  // const isExitsProduct = await Product.findOne({ name: payload.name })
+
+  // if (isExitsProduct) {
+  //   throw new AppError(httpStatus.CONFLICT, 'This Product already exists')
+  // }
+
   const result = await Product.create(payload)
 
   return result
@@ -17,6 +18,7 @@ const createProductIntoDB = async (payload: TProduct) => {
 const getAllProductFromDB = async (
   searchQuery: string,
   sortDirction: number,
+  category: string,
 ) => {
   let query: any = {}
 
@@ -33,6 +35,13 @@ const getAllProductFromDB = async (
       ],
     }
   }
+  if (category) {
+    query = {
+      ...query,
+      category: category,
+    }
+  }
+
   let sortCriteria: any = {}
   if (sortDirction === 0) {
     sortCriteria = {}
@@ -70,11 +79,7 @@ const deleteProductFromDB = async (productId: string) => {
     throw new AppError(httpStatus.NOT_FOUND, 'Product not Found!!')
   }
 
-  const result = await Product.findByIdAndUpdate(
-    productId,
-    { isDelete: true },
-    { new: true },
-  )
+  const result = await Product.findByIdAndDelete(productId)
   return result
 }
 export const ProductService = {

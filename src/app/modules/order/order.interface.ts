@@ -1,7 +1,8 @@
 export type TOrder = {
   name: string
   email: string
-  phone: number
+  phone: string
   address: string
   paymentMethod: 'cashOnDelivery'
+  cartItems: object[]
 }
