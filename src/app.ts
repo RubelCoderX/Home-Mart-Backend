@@ -5,8 +5,8 @@ import globalErrorHandler from './app/middleware/globalErrorHandler'
 
 const app = express()
 
-// Enable CORS for requests from http://localhost:5173
-app.use(cors({ origin: 'http://localhost:5173' }))
+//cors
+app.use(cors({ origin: 'https://campers-shop-frontend-eight.vercel.app' }))
 
 // Middleware to parse JSON request bodies
 app.use(express.json())

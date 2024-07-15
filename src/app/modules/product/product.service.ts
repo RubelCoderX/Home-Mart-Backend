@@ -19,6 +19,7 @@ const getAllProductFromDB = async (
   searchQuery: string,
   sortDirction: number,
   category: string,
+  price: number,
 ) => {
   let query: any = {}
 
@@ -35,6 +36,7 @@ const getAllProductFromDB = async (
       ],
     }
   }
+  // category
   if (category) {
     query = {
       ...query,
@@ -50,6 +52,11 @@ const getAllProductFromDB = async (
   } else if (sortDirction === -1) {
     sortCriteria = { price: -1 }
   }
+  // price
+  if (price > 0) {
+    query.price = { $lte: price }
+  }
+
   const result = await Product.find(query).sort(sortCriteria)
   return result
 }

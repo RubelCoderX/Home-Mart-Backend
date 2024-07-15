@@ -7,7 +7,7 @@ const OrderSchema = new Schema<TOrder>({
   phone: { type: String, required: true },
   address: { type: String, required: true },
   paymentMethod: { type: String, enum: ['cashOnDelivery'], required: true },
-  cartItems: {
+  items: {
     type: [Object],
     required: true,
   },

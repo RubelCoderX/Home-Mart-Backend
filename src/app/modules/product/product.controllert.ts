@@ -15,11 +15,12 @@ const createProduct = catchAsync(async (req, res) => {
 })
 
 const getAllProduct = catchAsync(async (req, res) => {
-  const { search, sort, category } = req.query
+  const { search, sort, category, price } = req.query
   const result = await ProductService.getAllProductFromDB(
     search as string,
     parseInt(sort as string),
     category as string,
+    parseInt(price as string),
   )
 
   sendResponse(res, {
