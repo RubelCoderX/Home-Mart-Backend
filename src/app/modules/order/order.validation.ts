@@ -5,12 +5,13 @@ const orderValidationSchema = z.object({
     name: z.string().nonempty({ message: 'Name is required' }),
     email: z.string().email({ message: 'Invalid email address' }),
     phone: z
-      .number()
-      .nonnegative({ message: 'Phone number must be non-negative' }),
+      .string()
+      .nonempty({ message: 'Phone number must be non-negative' }),
     address: z.string().nonempty({ message: 'Address is required' }),
     paymentMethod: z.enum(['cashOnDelivery'], {
       message: 'Invalid payment method',
     }),
+    // user: z.string().nonempty({ message: 'User is required' }),
   }),
 })
 

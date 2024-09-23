@@ -3,11 +3,14 @@ import validRequest from '../../middleware/validRequest'
 
 import { ProductController } from './product.controllert'
 import { productValidationSchema } from './product.validation'
+import { auth } from '../../middleware/auth'
+import { USER_ROLES } from '../user/user.constant'
 
 const router = express.Router()
 
 router.post(
   '/create-product',
+  auth(USER_ROLES.seller),
   validRequest(productValidationSchema.createProductValidationSchema),
   ProductController.createProduct,
 )

@@ -1,3 +1,5 @@
+import { Types } from 'mongoose'
+
 type TCartItems = {
   _id?: string
   name: string
@@ -11,9 +13,11 @@ type TCartItems = {
 }
 export type TOrder = {
   name: string
+  totalAmount: string
+  user: Types.ObjectId
   email: string
   phone: string
   address: string
-  paymentMethod: 'cashOnDelivery'
+  paymentMethod: 'cashOnDelivery' | 'online-payment'
   items: TCartItems[]
 }
