@@ -16,6 +16,7 @@ const createProductValidationSchema = z.object({
       .min(0)
       .max(5, { message: 'Rating must be between 0 and 5' }),
     images: z.string().url({ message: 'Each image must be a valid URL' }),
+    size: z.string().optional(),
   }),
 })
 const updateValidationSchema = z.object({
@@ -47,6 +48,7 @@ const updateValidationSchema = z.object({
       .string()
       .url({ message: 'Each image must be a valid URL' })
       .optional(),
+    size: z.string().optional(),
   }),
 })
 

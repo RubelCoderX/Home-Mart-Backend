@@ -6,4 +6,5 @@ export type TProduct = {
   stock: number
   rating: number
   images: string
+  size?: string
 }

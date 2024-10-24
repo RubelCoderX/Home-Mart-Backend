@@ -32,6 +32,9 @@ const ProductSchema = new Schema<TProduct>({
     type: String,
     required: [true, 'Images is required'],
   },
+  size: {
+    type: String,
+  },
 })
 
 export const Product = model<TProduct>('Product', ProductSchema)
